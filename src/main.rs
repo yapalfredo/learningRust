@@ -1,23 +1,46 @@
 fn main() {
-    let cond = 2.1 <= 2.005;
+    print!("Hello World!");
 
-    print!("{}", cond);
+    let x: f32 = 10.0;
+    let y: f32 = 25.0;
 
-    let cond2 = true && cond;
+    println!(
+        "Adding {} and {} will equate to {}",
+        x,
+        y,
+        add_two_numbers(x, y)
+    );
 
-    println!("{}", cond2);
+    // expression
 
-    let cond3 = false || cond2;
+    let _number = {
+        let x = 3;
 
-    println!("{}", cond3);
+        //no semicolon because the value in this will be assigned to _number
+        x + 1
+    };
 
-    let cond4 = "bread";
+    println!("{}", _number);
 
-    if cond4 == "food" {
-        print!("Your condition is met!");
-    } else if cond4 == "cake" {
-        print!("That was a good coake");
-    } else {
-        print!("Chocolate Crepe");
-    }
+    print_hello_world();
+
+    println!("{}", return_result(10, 25));
+}
+
+//semicolon must not be there for function
+//that returns a value
+//unless you put the keyword 'return'
+fn add_two_numbers(x: f32, y: f32) -> f32 {
+    x + y
+}
+
+//for function w/ no returning value
+//semicolon is required
+fn print_hello_world() {
+    println!("Hello World");
+}
+
+fn return_result(x: i32, y: i32) -> i32 {
+    let res = x + y;
+    res
 }
