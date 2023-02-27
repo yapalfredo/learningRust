@@ -1,82 +1,79 @@
-struct User {
-    username: String,
-    email: String,
-    sign_in_count: u64,
-    active: bool,
+enum IpAddrKind {
+    V4(u8, u8, u8, u8),
+    V6(String),
+}
+
+struct IpAddr {
+    kind: IpAddrKind,
+    address: String,
+}
+
+fn main() {
+    // let four = IpAddrKind::V4;
+    // let six = IpAddrKind::V6;
+
+    // let localhost = IpAddr {
+    //     kind: IpAddrKind::V4,
+    //     address: String::from("127.0.0.1"),
+    // };
+
+    // let localhost = IpAddrKind::V4(String::from("127.0.0.1"));
+
+    // let localhost = IpAddrKind::V4(127, 0, 0, 1);
+
+    // let c1 = Coin::Penny;
+
+    // println!("{:?}", c1);
+
+    // let q1 = Coin::Quarter(UsState::California);
+
+    // println!("{:?}", q1)
+
+    // value_in_cents(Coin::Quarter(UsState::California));
+    let five = Some(5);
+    let six = plus_one(five);
+    let none = plus_one(None);
+}
+
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    match x {
+        // None => None,
+        Some(i) => Some(i + 1),
+        _ => None,
+    }
+
+    //other way of writing this
+    // if let Some(3) = some_value {
+    // println!("three");
+    //}
 }
 
 #[derive(Debug)]
-struct Rectangle {
-    width: u32,
-    height: u32,
+enum UsState {
+    Alabama,
+    Alaska,
+    Arizona,
+    Arkansas,
+    California,
+    //....
 }
 
-impl Rectangle {
-    fn solve_area(&self) -> u32 {
-        self.width * self.height
-    }
+#[derive(Debug)]
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter(UsState),
+}
 
-    fn can_hold(&self, other: &Rectangle) -> bool {
-        self.width > other.width && self.height > other.height
-    }
-
-    fn square(size: u32) -> Rectangle {
-        Rectangle {
-            width: size,
-            height: size,
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny => 1,
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter(state) => {
+            println!("This is {:?}!", state);
+            25
         }
-    }
-}
-fn main() {
-    let user1 = User {
-        email: String::from("test@test.com"),
-        username: String::from("test"),
-        active: true,
-        sign_in_count: 1,
-    };
-
-    let name = user1.username;
-    println!("Username: {}", name);
-
-    let user2 = build_user(String::from("test2@test.com"), String::from("test2"));
-    println!("user2 {}:", user2.username);
-
-    let rect1 = Rectangle {
-        width: 50,
-        height: 15,
-    };
-
-    println!(
-        "The area of the Reactangle {:?} is {}",
-        rect1,
-        rect1.solve_area()
-    );
-
-    let rect2 = Rectangle {
-        width: 25,
-        height: 7,
-    };
-
-    let rect3 = Rectangle {
-        width: 55,
-        height: 16,
-    };
-
-    println!("rect1 can hold rect2: {} ", rect1.can_hold(&rect2));
-    println!("rect1 can hold rect3: {} ", rect1.can_hold(&rect3));
-
-    let sq1 = Rectangle::square(25);
-}
-
-// fn solve_area(rect: &Rectangle) -> u32 {
-//     return rect.width * rect.height;
-// }
-
-fn build_user(email: String, username: String) -> User {
-    User {
-        email,
-        username,
-        active: true,
-        sign_in_count: 1,
     }
 }
